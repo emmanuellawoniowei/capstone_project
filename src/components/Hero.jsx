@@ -1,43 +1,47 @@
-import hero from "../assets/images/hero.png"
-import enter from "../assets/icons/enter.svg"
+import hero from "../assets/images/hero.png";
+import enter from "../assets/icons/enter.svg";
 
 export default function Hero() {
-    return (
-        <section className="w-full bg-[#FFF6FD] flex flex-col md:flex-row items-center justify-between mt-[100px] md:mt-[120px] lg:mt-[150px] rounded-[20px] overflow-hidden">
+  return (
+    <section
+      id="home"
+      className="max-w-7xl mx-auto mt-28 px-6 lg:px-10"
+    >
+      <div className="bg-[#FFF6FD] rounded-[28px] overflow-hidden flex flex-col md:flex-row items-center justify-between shadow-sm">
 
-            <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left gap-3 md:gap-4 xl:gap-6 px-5 md:px-10 lg:px-[100px] py-10">
+        <div className="w-full md:w-1/2 px-8 lg:px-16 py-14">
 
-                <h1 className="text-[25px] sm:text-[38px] md:text-[46px] lg:text-[48px] xl:text-[60px] text-black font-bold leading-tight max-w-[500px]">
-                    Glow Beyond Expectations
-                </h1>
+          <span className="uppercase tracking-widest text-pink-500 font-medium">
+            Premium Skincare
+          </span>
 
-                <p className="text-black text-[16px] md:text-[18px] lg:text-[19px] xl:text-[20px] font-light max-w-[440px]">
-                    Clean, effective, and cruelty-free skincare made to deliver visible results.
-                </p>
+          <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+            Reveal Your Natural Glow
+          </h1>
 
-                <button
-                    type="button"
-                    className="flex items-center gap-3 
-                    px-5 md:px-6 py-3 
-                    bg-[#121212] text-white rounded-full 
-                    hover:bg-pink-600 transition 
-                    text-[14px] sm:text-[16px] md:text-[20px] lg:text-[25px]"
-                >
-                    Shop Now
-                    <img src={enter} alt="Enter" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
-                </button>
+          <p className="mt-6 text-base md:text-lg text-gray-600 max-w-md leading-relaxed">
+            Dermatologist-inspired skincare formulated with gentle, effective ingredients
+            to hydrate, restore, and protect your skin barrier for a healthy glow every day.
+          </p>
 
-            </div>
+          <button className="mt-8 flex items-center gap-3 px-7 py-4 bg-[#E75480] hover:bg-pink-600 transition text-white rounded-full shadow-md">
+            Shop Collection
+            <img src={enter} alt="arrow icon" className="w-5 h-5" />
+          </button>
+        </div>
 
-            {/* IMAGE (hidden on mobile) */}
-            <div className="hidden md:flex w-full md:w-1/2 justify-center md:justify-end">
-                <img 
-                    src={hero} 
-                    alt="Hero Image" 
-                    className="w-[250px] sm:w-[320px] md:w-[420px] lg:w-full max-w-[600px] object-contain rounded-[20px]"
-                />
-            </div>
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end relative">
 
-        </section>
-    )
+          <img
+            src={hero}
+            alt="Skincare Products"
+            className="w-full max-w-[520px] md:max-w-[600px] lg:max-w-[650px] object-contain"
+          />
+
+          <div className="absolute -z-10 w-[280px] h-[280px] bg-pink-200 blur-3xl opacity-30 rounded-full top-10 right-10"></div>
+        </div>
+
+      </div>
+    </section>
+  );
 }

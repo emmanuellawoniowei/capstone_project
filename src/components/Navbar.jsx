@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../assets/icons/Logo.svg"
-import Bag from "../assets/icons/bag.svg"
-import Heart from "../assets/icons/heart.svg"
-import Profile from "../assets/icons/profile.svg"
-import Category from "../assets/icons/category.svg"
+import Category from "../assets/icons/category.svg";
 
 export default function Navbar() {
     const navRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
-    const closeMenu = () => setIsOpen(false);
+
+    const scrollToSection = (id) => {
+        document.getElementById(id)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+
+        setIsOpen(false);
+    };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -18,115 +22,73 @@ export default function Navbar() {
             }
         };
 
-        document.addEventListener("click", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("click", handleClickOutside);
-        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    const navItems = [
+        { label: "Home", id: "home" },
+        { label: "Shop", id: "shop" },
+        { label: "FAQ", id: "faq" },
+        { label: "Contact", id: "contact" },
+    ];
 
     return (
         <nav
             ref={navRef}
-            className="flex justify-between items-center lg:gap-[30px] fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md px-[20px] lg:px-[35px] xl:px-[50px] py-[25px] border-b-2 border-pink-200 lg:border-b-0 lg:shadow-sm">
+            className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-pink-100"
+        >
+            <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex justify-between items-center">
+               
+                <h1
+                    onClick={() => scrollToSection("home")}
+                    className="text-2xl lg:text-3xl font-bold cursor-pointer tracking-wide"
+                >
+                    Aura<span className="text-pink-500">Beauty</span>
+                </h1>
 
-            <img src={Logo} alt="Logo" />
+                <ul className="hidden lg:flex items-center gap-10">
+                    {navItems.map((item) => (
+                        <li
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className="cursor-pointer text-gray-700 hover:text-pink-500 font-medium transition"
+                        >
+                            {item.label}
+                        </li>
+                    ))}
+                </ul>
 
-
-            <button type="button" className="lg:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-                <img src={Category} alt="Menu" />
-            </button>
-
+                <button
+                    className="lg:hidden"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <img src={Category} alt="Menu" />
+                </button>
+            </div>
 
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 w-full bg-white shadow-lg lg:hidden px-[20px] py-6 border-t-2 border-pink-200">
-
-                        <ul className="flex flex-col justify-center items-start gap-6 mb-6">
-                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
-                                Home
-                            </li>
-
-                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
-                                Shop
-                            </li>
-
-                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
-                                Spa
-                            </li>
-
-                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
-                                About
-                            </li>
-
-                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
-                                Contact
-                            </li>
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="lg:hidden bg-white border-t border-pink-100 shadow-lg"
+                    >
+                        <ul className="flex flex-col gap-5 px-6 py-6 text-gray-700">
+                            {navItems.map((item) => (
+                                <li
+                                    key={item.id}
+                                    onClick={() => scrollToSection(item.id)}
+                                    className="cursor-pointer hover:text-pink-500 transition"
+                                >
+                                    {item.label}
+                                </li>
+                            ))}
                         </ul>
-
-                        <div className="lg:hidden flex flex-row justify-start items-center gap-[20px]">
-                            <img
-                                src={Bag} alt="Shopping Bag"
-                                onClick={closeMenu}
-                            />
-
-                            <img
-                                src={Heart} alt="Wishlist"
-                                onClick={closeMenu}
-                            />
-                            <img
-                                src={Profile} alt="Profile"
-                                onClick={closeMenu}
-                            />
-                        </div>
                     </motion.div>
-
                 )}
             </AnimatePresence>
-
-            <ul className="hidden md:hidden lg:flex flex-row justify-center items-center gap-[32px]">
-                <li className="text-[24px] text-[#545454] font-light cursor-pointer transition-all duration-300 hover:text-pink-500 hover:-translate-y-1 ">
-                    Home
-                </li>
-
-                <li className="text-[24px] text-[#545454] font-light cursor-pointer transition-all duration-300 hover:text-pink-500 hover:-translate-y-1 ">
-                    Shop
-                </li>
-
-                <li className="text-[24px] text-[#545454] font-light cursor-pointer transition-all duration-300 hover:text-pink-500 hover:-translate-y-1">
-                    Spa
-                </li>
-
-                <li className="text-[24px] text-[#545454] font-light cursor-pointer transition-all duration-300 hover:text-pink-500 hover:-translate-y-1 ">
-                    About
-                </li>
-
-                <li className="text-[24px] text-[#545454] font-light cursor-pointer transition-all duration-300 hover:text-pink-500 hover:-translate-y-1">
-                    Contact
-                </li>
-            </ul>
-
-            <div className="hidden md:hidden lg:flex flex-row justify-center items-center gap-[20px]">
-                <img
-                    src={Bag} alt="Shopping Bag"
-                    className="cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-                />
-
-                <img
-                    src={Heart} alt="Wishlist"
-                    className="cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-                />
-                <img
-                    src={Profile} alt="Profile"
-                    className="cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-                />
-            </div>
-
         </nav>
-    )
+    );
 }
