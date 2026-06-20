@@ -6,7 +6,7 @@ This project simulates a real-world beauty brand storefront with product browsin
 ---
 
 ## 🚀 Live Demo
-https://your-deployment-link-here.com
+https://capstone-project-drab-nine.vercel.app/
 
 ---
 
@@ -95,7 +95,7 @@ src/
 
 
 # Clone repository
-git clone https://github.com/your-username/aurabeauty.git
+git clone https://github.com/emmanuellawoniowei/capstone_project.git
 
 # Navigate into project folder
 cd aurabeauty
