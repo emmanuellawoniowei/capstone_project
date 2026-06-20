@@ -7,7 +7,9 @@ import Profile from "../assets/icons/profile.svg"
 import Category from "../assets/icons/category.svg"
 
 export default function Navbar() {
+    const navRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
+    const closeMenu = () => setIsOpen(false);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -23,17 +25,15 @@ export default function Navbar() {
         };
     }, []);
 
-    const navRef = useRef(null);
-
     return (
-        <nav 
-            ref={navRef} 
-            className="flex flex-row justify-between items-center lg:gap-[30px] lg:justify-between items-center fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md px-[20px] lg:px-[35px] py-[25px] border-b-2 border-pink-200 lg:border-b-0 lg:shadow-sm">
+        <nav
+            ref={navRef}
+            className="flex justify-between items-center lg:gap-[30px] fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md px-[20px] lg:px-[35px] xl:px-[50px] py-[25px] border-b-2 border-pink-200 lg:border-b-0 lg:shadow-sm">
 
             <img src={Logo} alt="Logo" />
 
 
-            <button type="button" className="lg:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+            <button type="button" className="lg:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
                 <img src={Category} alt="Menu" />
             </button>
 
@@ -41,30 +41,30 @@ export default function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
                         className="absolute top-full left-0 w-full bg-white shadow-lg lg:hidden px-[20px] py-6 border-t-2 border-pink-200">
 
                         <ul className="flex flex-col justify-center items-start gap-6 mb-6">
-                            <li className="text-[24px] text-[#545454] font-light" onClick={() => setIsOpen(false)}>
+                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
                                 Home
                             </li>
 
-                            <li className="text-[24px] text-[#545454] font-light" onClick={() => setIsOpen(false)}>
+                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
                                 Shop
                             </li>
 
-                            <li className="text-[24px] text-[#545454] font-light" onClick={() => setIsOpen(false)}>
+                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
                                 Spa
                             </li>
 
-                            <li className="text-[24px] text-[#545454] font-light" onClick={() => setIsOpen(false)}>
+                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
                                 About
                             </li>
 
-                            <li className="text-[24px] text-[#545454] font-light" onClick={() => setIsOpen(false)}>
+                            <li className="text-[24px] text-[#545454] font-light" onClick={closeMenu}>
                                 Contact
                             </li>
                         </ul>
@@ -72,16 +72,16 @@ export default function Navbar() {
                         <div className="lg:hidden flex flex-row justify-start items-center gap-[20px]">
                             <img
                                 src={Bag} alt="Shopping Bag"
-                                onClick={() => setIsOpen(false)}
+                                onClick={closeMenu}
                             />
 
                             <img
-                                src={Heart}
-                                onClick={() => setIsOpen(false)}
+                                src={Heart} alt="Wishlist"
+                                onClick={closeMenu}
                             />
                             <img
                                 src={Profile} alt="Profile"
-                                onClick={() => setIsOpen(false)}
+                                onClick={closeMenu}
                             />
                         </div>
                     </motion.div>
@@ -118,7 +118,7 @@ export default function Navbar() {
                 />
 
                 <img
-                    src={Heart}
+                    src={Heart} alt="Wishlist"
                     className="cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 />
                 <img
